@@ -1,0 +1,224 @@
+# vsim -debugdb -c -do "log -r /*; save -onexit -directive -codeAll;run -all;exit" -l test.log work.top 
+# Start time: 17:49:05 on Dec 06,2022
+# ** Warning: (vsim-4308) Enabling visibility using +acc is recommended with debug flow.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vsim-8611) Generating debug db.
+# ** Warning: (vopt-4308) Enabling visibility using +acc is recommended with debug flow.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# //  Questa Sim-64
+# //  Version 2021.4_3 linux_x86_64 Feb  5 2022
+# //
+# //  Copyright 1991-2022 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.Package_sv_unit(fast)
+# Loading work.top(fast)
+# Loading work.dff_intf(fast__2)
+# Loading work.D_FF(fast)
+# Loading work.dff_intf(fast)
+# ** Note: (vsim-8900) Creating design debug database vsim.dbg.
+# log -r /*
+#  save -onexit -directive -codeAll
+# invalid command name "save"
+# run -all
+#                    0generator data is '{preset:0, clear_in:1, enable:0, clk:0, din:0, q_out:0}
+#                    0generator data is '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                    0generator data is '{preset:0, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+#                    0generator data is '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+#                    0generator data is '{preset:1, clear_in:0, enable:0, clk:0, din:0, q_out:0}
+#                    0generator data is '{preset:1, clear_in:0, enable:1, clk:0, din:1, q_out:0}
+#                    0generator data is '{preset:1, clear_in:1, enable:0, clk:0, din:1, q_out:0}
+#                    0generator data is '{preset:1, clear_in:1, enable:0, clk:0, din:1, q_out:0}
+#                    0generator data is '{preset:0, clear_in:0, enable:1, clk:0, din:0, q_out:0}
+#                    0generator data is '{preset:1, clear_in:0, enable:1, clk:0, din:1, q_out:0}
+# INSIDE INTERFACE 
+# din=x q_out=x preset=x clear=x enable=x 
+# 
+# inside the op monitor '{preset:0, clear_in:0, enable:0, clk:0, din:0, q_out:0}
+# inside ip monitor trans= '{preset:0, clear_in:0, enable:0, clk:0, din:0, q_out:0}
+#                    5PASS 	 DUT='{preset:0, clear_in:0, enable:0, clk:0, din:0, q_out:0} 
+#  checker='{preset:0, clear_in:0, enable:0, clk:0, din:0, q_out:0} 
+# INSIDE INTERFACE 
+# din=0 q_out=x preset=1 clear=1 enable=1 
+# 
+# din=0
+# inside dut preset=1 din=0 q_out=x
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+#                   15PASS 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=0 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=0
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                   25FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=0 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=0
+# inside dut preset=1 din=0 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+#                   35PASS 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+# INSIDE INTERFACE 
+# din=0 q_out=0 preset=1 clear=1 enable=1 
+# 
+# din=0
+# inside dut preset=1 din=0 q_out=0
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+#                   45PASS 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+# INSIDE INTERFACE 
+# din=0 q_out=0 preset=1 clear=1 enable=1 
+# 
+# din=0
+# inside dut preset=1 din=0 q_out=0
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+#                   55PASS 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=0 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=0
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                   65FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+#                   75FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                   85FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=0 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=0
+# inside dut preset=1 din=0 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0}
+#                   95PASS 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:0, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=0 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=0
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                  105FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+#                  115FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                  125FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+#                  135FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                  145FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+#                  155FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                  165FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+#                  175FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+#                  185FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# INSIDE INTERFACE 
+# din=1 q_out=1 preset=1 clear=1 enable=1 
+# 
+# din=1
+# inside dut preset=1 din=1 q_out=1
+# inside ip monitor trans= '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0}
+# inside the op monitor '{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1}
+#                  195FAIL 	 DUT='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:1} 
+#  checker='{preset:1, clear_in:1, enable:1, clk:0, din:1, q_out:0} 
+# ** Note: $finish    : top.sv(21)
+#    Time: 200 ns  Iteration: 0  Instance: /top
+# End time: 17:49:05 on Dec 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2
