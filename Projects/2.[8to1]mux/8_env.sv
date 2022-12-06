@@ -3,7 +3,7 @@
  class environment;
 
 //--------------------------HANDLERS-----------------------//
-	virtual mux_out h_vintf;     
+	virtual mux_intf	h_vintf;     
 	mailbox h_mbx_1,h_mbx_2,h_mbx_3;
 
 	generator h_generator;    // genertor class handler
@@ -14,7 +14,7 @@
 
 //---------------------constructor-------------------------//
 
-function new(virtual adder_intf h_vintf);
+function new(virtual mux_intf h_vintf);
 	this.h_vintf = h_vintf;
 	h_mbx_1 = new();   // creating memory for generator handle
 	h_mbx_2 = new();  // creating memory for ipmo handle(checker)
@@ -31,9 +31,9 @@ endfunction
 task run();
 	fork
 		h_generator.randomize_inputs();  
-		h_driver.drive_to_interface();  
-		h_ip_monitor.take_ip_do_checker();
-		h_op_monitor.take_from_dut();
+		h_driver.drive_to_interface();  //1
+		h_ip_monitor.take_ip_do_checker();//2
+		h_op_monitor.take_from_dut();//3
 		h_score_board.comparator();
 	join
 endtask
