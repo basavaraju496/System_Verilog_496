@@ -17,11 +17,11 @@ class scoreboard;
 			h_mbx1.get(h_trans1);  // getting daata ffrom checker to trans1
 			h_mbx2.get(h_trans2);  //getting data from dut to trans2
 			
-		//	if(h_trans1.cout === h_trans2.cout)
-		//	$display($time,"PASS \n DUT=%p \n checker=%p ",h_trans2,h_trans1);
-		//	else
-//			$display($time,"FAIL \n DUT=%p \n checker=%p ",h_trans2,h_trans1);
-			//$display($time,"TESTING \n  DUT=%p \n checker=%p  \n \n",h_trans2,h_trans1);
+		/*	if(h_trans1.cout === h_trans2.cout)
+			$display($time,"PASS \n DUT=%p \n checker=%p ",h_trans2,h_trans1);
+			else
+			$display($time,"FAIL \n DUT=%p \n checker=%p ",h_trans2,h_trans1);*/
+//			$display($time,"TESTING \n  DUT=%p \n checker=%p  \n \n",h_trans2,h_trans1);
 		end
 	end
 	endtask

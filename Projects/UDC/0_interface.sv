@@ -18,21 +18,8 @@ interface UDC_intf(input clk);
 	endclocking
 
 
-always @(clk)
-begin
-//		$display("******************\t INSIDE interface \t ****************");
-//		$display("ips ncs=%b reset=%b nwr=%b din=%0d nrd=%b \n ops dir=%b err=%b ec=%b count=%0d ",ncs,reset,nwr,din,nrd,dir,err,ec,cout);
-end
-
-
-
-
-
-
-
-
-
-
-
-
+always@(clk)
+			begin
+					$display($time,"ncs=%b nrd=%b nwr=%b start_in=%b A0=%b A1=%b din=%0d  cout=%0d ",ncs,nrd,nwr,start_in,A0,A1,din,cout);  
+			end
 endinterface

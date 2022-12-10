@@ -7,29 +7,13 @@ rand bit [7:0]din;
 bit err,ec,dir;
 bit [7:0]cout;
 
-constraint din_range1{
-		if({A0,A1}==2'B11)
-				din inside {[1:5]}; //ccr
-}
-
-
-
-
-constraint din_range4{
-		if({A0,A1}==2'B00)
-				din inside {[10:12]};  }  //plr
-
-constraint din_range2{
-		if({A0,A1}==2'B10)
-				din inside {[15:17]}; }    //ulr
-
-constraint din_range3{
-		if({A0,A1}==2'B01)       
-				din inside {[5:7]};   //llr
-}
-
-
-
+	constraint random{
+		soft start_in==0;
+		soft nwr==1;
+		soft nrd==1;
+		soft reset==0;
+		soft ncs==0;
+	}
 
 
 endclass

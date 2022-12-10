@@ -42,6 +42,7 @@ static int q2[$];
 		//	$display($time,"\nbefore processing data is %p",h_trans);  
 				task_checker;
 
+				$display("-start flag-%d %d %d",start_flag,h_trans.start_in,on_flag);
 				h_mbox.put(h_trans);
 		//		$display("after procseccing the ip monitor  %p",h_trans);
 
@@ -175,6 +176,7 @@ begin//{
 		ontime=$realtime;
 		on_flag=on_flag+1;
 		$display($time,"ontime=%f on flag=%0d",ontime,on_flag);
+		$display($time,"on_flag=%0d",on_flag);
 	end
   if (h_trans.start_in==0 && on_flag==1)
 	begin
@@ -182,10 +184,11 @@ begin//{
 		$display($time,"offtime=%f",offtime);
 		on_flag=0;
 	end
-	if(offtime-ontime==10)
+	if(offtime-ontime==`CLK_PERIOD)
 	begin
 		start_flag=1;
 		$display($time,"off-on=%f start flag==1 ",ontime-offtime);
+		$display($time,"PLR=%0d ULR=%0d LLR=%0d CCR=%0d",PLR,ULR,LLR,CCR);  
 		task_error;      // calling error block after start flag==1
 		end
 	
@@ -227,7 +230,7 @@ if({plr_flag,llr_flag,ccr_flag,ulr_flag}==4'b1111)
 endtask
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~COUNTER ~~~~~~~~~~~~~~~~~~~~~~~``//
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~COUNTER1 ~~~~~~~~~~~~~~~~~~~~~~~``//
 
 task task_counter;
 							repeat(1)  
@@ -267,7 +270,45 @@ task task_counter;
 //$display("q2=%p\nq2.size=%0d",q2,q2.size);
 
 endtask
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~COUNTER2 ~~~~~~~~~~~~~~~~~~~~~~~``//
+/*
+task task_counter;
+		repeat(CCR) begin  //{
+							repeat(1)  
+								begin//{
+																			temp_count=PLR;
+																		   	temp_dir=(temp_count<ULR)?1:temp_dir; 
+										   									q1.push_back(temp_count);
+																			q2.push_back(temp_dir);
 
+								 end//}
+								repeat(ULR-PLR) 
+												begin//{
+																				temp_count=temp_count+1;
+																			   	temp_dir=(temp_count<ULR)?1:0; 
+																	   			q1.push_back(temp_count);
+																				q2.push_back(temp_dir);
+												end//}
+								repeat(ULR-LLR) 
+												begin//{
+																			temp_count=temp_count-1;
+																			temp_dir=(temp_count>LLR)?0:1; 
+										   									q1.push_back(temp_count);
+																			q2.push_back(temp_dir);
+												end//}
+								repeat(PLR-LLR) 
+	   											begin//{
+														   	temp_count=temp_count+1;
+														   	temp_dir=(temp_count<PLR)?1:1'BZ; 
+													   		q1.push_back(temp_count);
+															q2.push_back(temp_dir);
+												 end//}
+								end//}
+//$display("q1=%p\nq1.size=%0d",q1,q1.size);
+//$display("q2=%p\nq2.size=%0d",q2,q2.size);
+
+endtask
+*/
 //===================================starter===================================//
 task task_starter;
 				if(start_flag==1)
@@ -291,6 +332,8 @@ task task_ec_maker;
 				h_trans.ec=1;
 				{plr_flag,llr_flag,ulr_flag,ccr_flag}=0;
 				start_flag=0;
+				ontime=0;
+				offtime=0;
 endtask
 
 

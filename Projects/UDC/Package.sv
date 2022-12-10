@@ -1,4 +1,8 @@
+`define CLK_PERIOD 10
+
+
 `include"0_dut.v"
+
 `include"1_transaction.sv"
 
 `include"2_generator.sv"

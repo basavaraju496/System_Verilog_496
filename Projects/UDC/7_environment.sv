@@ -34,38 +34,39 @@ endtask*/
 	task run();
 		fork
 			begin
-				h_gen.run(2,2,2,5,1);//PLR=LLR=ULR
-				wait(h_vintf.ec_out == 1);
+		//		h_gen.run(5,5,5,2,1);//PLR ULR LLR CCR
+				h_gen.run(10,15,5,2,1);//PLR ULR LLR CCR
+			/*	wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
-				h_gen.run(5,10,2,1,1);//PLR!=LLR!=ULR
-				wait(h_vintf.ec_out == 0);
-				wait(h_vintf.ec_out == 1);
+				h_gen.run(5,10,2,1,1);
+				wait(h_vintf.ec == 0);
+				wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
 				h_gen.run(10,10,5,1,1);//PLR=ULR
-				wait(h_vintf.ec_out == 0);
-				wait(h_vintf.ec_out == 1);
+				wait(h_vintf.ec == 0);
+				wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
 				h_gen.run(5,10,5,1,1);//PLR=LLR
-				wait(h_vintf.ec_out == 0);
-				wait(h_vintf.ec_out == 1);
+				wait(h_vintf.ec == 0);
+				wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
 				h_gen.run(5,7,3,1,1);//PLR=ULR-2=LLR+2
-				wait(h_vintf.ec_out == 0);
-				wait(h_vintf.ec_out == 1);
+				wait(h_vintf.ec == 0);
+				wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
 				h_gen.run(5,6,4,1,1);//PLR=ULR-1=LLR+1
-				wait(h_vintf.ec_out == 0);
-				wait(h_vintf.ec_out == 1);
+				wait(h_vintf.ec == 0);
+				wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
 				h_gen.run(5,7,5,1,1);//PLR=LLR=ULR-2
-				wait(h_vintf.ec_out == 0);
-				wait(h_vintf.ec_out == 1);
+				wait(h_vintf.ec == 0);
+				wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
 				h_gen.run(7,7,5,1,1);//PLR=ULR=LLR+2
-				wait(h_vintf.ec_out == 0);
-				wait(h_vintf.ec_out == 1);
+				wait(h_vintf.ec == 0);
+				wait(h_vintf.ec == 1);
 				repeat(2)@(h_vintf.cd_monitor);
-				h_gen.run(0,255,0,1,2);
+				h_gen.run(0,255,0,1,2);*/
 			end
 		h_driv.run();  
 		h_ipmo.run();
