@@ -1,5 +1,5 @@
-`define CLK_PERIOD 10
-
+`define CLK_PERIOD 4
+`define END_SIMULATION  300
 
 `include"0_dut.v"
 
@@ -15,7 +15,11 @@
 
 `include"5_output_monitor.sv"
 
+
 `include"6_scoreboard.sv"
+
+
+`include"10_Coverage.sv"
 
 `include"7_environment.sv"
 

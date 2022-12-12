@@ -2,20 +2,31 @@ class transaction;
 
 rand reg ncs,nrd,nwr,start_in,reset;
 rand bit A0,A1;
-rand bit [7:0]din;
+randc reg [7:0]din;
+
+//static byte temp;
 
 bit err,ec,dir;
 bit [7:0]cout;
 
 	constraint random{
-		soft start_in==0;
+		soft start_in==0; // it can be overridden by the inline constraints
 		soft nwr==1;
 		soft nrd==1;
 		soft reset==0;
 		soft ncs==0;
 	}
-
-
+	constraint random_din{
+		din inside {[0:255]};
+if(A0==1 && A1==1)
+		din inside {[1:3]};
+/*	if(A0==0 && A1==0)
+		din inside {10};
+if(A0==0 && A1==1)
+		din inside {15};
+if(A0==1 && A1==0)
+		din inside {5};*/
+	}
 endclass
 
 

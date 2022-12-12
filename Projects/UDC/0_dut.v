@@ -46,7 +46,6 @@ always @(*)
 // posedge_start signal is generated after detecting the start pulse 
 always @ (posedge clk)        
    begin
-//		$display($time,"******************DUT**********************\ninputs ncs=%b reset=%b nwr=%b din=%0d nrd=%b \n ops dir=%b err=%b ec=%b count=%0d a0=%b a1=%b ",ncs,reset,nwr,din,nrd,dir,err,ec,cout,a0,a1);
 
      if (reset)
          posedge_start <= 1'b0 ;

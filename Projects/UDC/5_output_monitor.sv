@@ -1,5 +1,6 @@
 class output_monitor;
 
+
 	virtual UDC_intf h_vintf; 
 	mailbox h_mbx;             
 	transaction h_trans;      
@@ -26,7 +27,6 @@ task run();
 				h_trans.ncs = h_vintf.cd_monitor.ncs;
 		
 				h_mbx.put(h_trans);   // keeping the all values in mailbox inorder to transfer to the scoreboard
-//	$display("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\t Inside OP Monitor$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");	
 			//	$display("inside op monitor %p",h_trans);
 			end
 

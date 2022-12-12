@@ -15,7 +15,7 @@ class driver;
 					begin
 						@(h_vintf.cb_driver) // @posedge clk 
 						h_trans = new();
-						h_mbx.get(h_trans);    
+						h_mbx.get(h_trans);    // get is blocking until data is filled it wont take data in mailbox
 						// taking randomized ips from trans handle
 						h_vintf.cb_driver.ncs<=h_trans.ncs;
 						h_vintf.cb_driver.reset<=h_trans.reset;
@@ -24,7 +24,7 @@ class driver;
 						h_vintf.cb_driver.A0<=h_trans.A0;
 						h_vintf.cb_driver.A1<=h_trans.A1;
 						h_vintf.cb_driver.start_in<=h_trans.start_in;
-						h_vintf.cb_driver.din<=h_trans.din;
+						h_vintf.cb_driver.din<=(h_trans.nwr==0)?h_trans.din:8'bz;
 						
 
 		//	$display($time,"\ndriver data is %p",h_trans);  

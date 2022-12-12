@@ -12,8 +12,8 @@ static real ontime,offtime;
 
 static bit llr_flag,ulr_flag,ccr_flag,plr_flag;
 
-static int q1[$];
-static int q2[$];
+static int q1[$];  // for storing count
+static int q2[$];  // for storing direction
 
 
 
@@ -39,10 +39,8 @@ static int q2[$];
 				h_trans.ncs = h_vintf.cd_monitor.ncs;
 				h_trans.din = h_vintf.cd_monitor.din;
 
-		//	$display($time,"\nbefore processing data is %p",h_trans);  
-				task_checker;
-
-				$display("-start flag-%d %d %d",start_flag,h_trans.start_in,on_flag);
+				task_checker;   // calling checker task
+				h_trans.din = (h_trans.nwr==1)?((h_trans.nrd==1)? 8'bz:checker_read):h_trans.din;
 				h_mbox.put(h_trans);
 		//		$display("after procseccing the ip monitor  %p",h_trans);
 
@@ -57,18 +55,15 @@ static int q2[$];
 
 task task_checker;
 					 task_ncs;
-			//		 $display("insdide checker task");
 endtask
 
 // =============================chip select =================//
 
 task task_ncs;
-if(h_trans.ncs==0)
-begin //{    h_trans.h_trans.ncs==1 case retain previous
-
-			task_reset;
-
-end
+					if(h_trans.ncs==0)
+										begin   
+												task_reset;
+										end
 endtask
 //=======================RESET BLOCK ======================//
 task task_reset;
@@ -82,132 +77,122 @@ task task_reset;
 														llr_flag=0;
 														ulr_flag=0;
 														ccr_flag=0;
+														start_flag=0;
+														$display("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+														$display("\t \t \t\t\t\t RESET   \t\t\t\t\t\t\t\t\t\t");
+														$display("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 									end//}
 					else
 					begin   //    ncs=0 and reset=1 case
-				               task_write;
-	 							task_read;
-								task_start;
-								
-
+				               task_write;   // writing 
+	 							task_read;  //reading 
+								task_start;  // start pulse detection
 					end
 endtask
 //============================================ WRITE ==========================//
 task task_write;
-if(h_trans.nwr==0)
-			begin//{
-
-					if(h_trans.A1==0 && h_trans.A0==0)
-									begin
-												if(plr_flag==0)
-														begin
-															PLR=h_trans.din;
-															plr_flag=1;
-														end
-														
+				if(h_trans.nwr==0)
+							begin//{
+									if(h_trans.A1==0 && h_trans.A0==0)
+													begin
+																if(plr_flag==0)
+																		begin
+																			PLR=h_trans.din;// plr is loaded here
+																			plr_flag=1;  // making plr_flag==1 inorder to prevent overriding of data 
+																		end
+													end
+									else if(h_trans.A1==0 && h_trans.A0==1)
+													begin
+																if(ulr_flag==0)
+																		begin
+																			ULR=h_trans.din;
+																			ulr_flag=1;
+																		end
 									end
-					else if(h_trans.A1==0 && h_trans.A0==1)
-									begin
-																					if(ulr_flag==0)
-														begin
-															ULR=h_trans.din;
-															ulr_flag=1;
-														end
-
-					end
-					else if(h_trans.A1==1 && h_trans.A0==0)
-									begin
-
-												if(llr_flag==0)
-														begin
-															LLR=h_trans.din;
-															llr_flag=1;
-														end
+									else if(h_trans.A1==1 && h_trans.A0==0)
+													begin
+																if(llr_flag==0)
+																		begin
+																			LLR=h_trans.din;
+																			llr_flag=1;
+																		end
+													end
+									else if(h_trans.A1==1 && h_trans.A0==1)
+											begin
+																if(ccr_flag==0)
+																		begin
+																			CCR=h_trans.din;
+																			ccr_flag=1;
+																		end
 									end
-					else if(h_trans.A1==1 && h_trans.A0==1)
-							begin
-																			if(ccr_flag==0)
-														begin
-															CCR=h_trans.din;
-															ccr_flag=1;
-														end
-					end
-
-			end//}
+							end//}
 endtask
 
 //====================== for reading ===========================//
 task task_read;
-if(h_trans.nrd==0)
-begin//{
-		if(h_trans.A1==0 && h_trans.A0==0)
-		begin
-			checker_read=PLR;
-		end		
-		else if(h_trans.A1==0 && h_trans.A0==1)
-		begin
-			checker_read=ULR;
-		end
-		else if(h_trans.A1==1 && h_trans.A0==0)
-		begin
-			checker_read=LLR;
-		end		
-		else if(h_trans.A1==1 && h_trans.A0==1)
-		begin
-			checker_read=CCR;
-		end			
-		else begin
-		checker_read=8'bz;
-		end
-
-end//}
-
+				if(h_trans.nrd==0)
+									begin//{
+											if(h_trans.A1==0 && h_trans.A0==0)
+											begin
+												checker_read=PLR;
+											end		
+											else if(h_trans.A1==0 && h_trans.A0==1)
+											begin
+												checker_read=ULR;
+											end
+											else if(h_trans.A1==1 && h_trans.A0==0)
+											begin
+												checker_read=LLR;
+											end		
+											else if(h_trans.A1==1 && h_trans.A0==1)
+											begin
+												checker_read=CCR;
+											end			
+											else begin
+											checker_read=8'bz;
+											end
+				end//}
 endtask
 
 //=================================START=================================//
 
-
 task task_start;
-if({plr_flag,llr_flag,ccr_flag,ulr_flag}==4'b1111 && start_flag!=1)
+				if({plr_flag,llr_flag,ccr_flag,ulr_flag}==4'b1111 && start_flag!=1)
+					begin//{
+							  if(h_trans.start_in==1 && on_flag==0)
+								begin//{
+									ontime=$realtime; // it will store the on time
+									on_flag=on_flag+1;
+								end//}
+							 else if (h_trans.start_in==0 && on_flag==1)
+												begin//{
+													offtime=$realtime;
+													$display($time,"offtime=%f",offtime);
+													on_flag=0;
+														if(offtime-ontime==`CLK_PERIOD)
+								     										begin//{
+																			start_flag=1;
+																			$display("________________________________________________________________________________________________________________________\n");
+																			$display($time,"----------------------------------off-on=%f start flag==1-----------------------------------------",offtime-ontime);
+																			$display($time,"----------------------------------PLR=%0d ULR=%0d LLR=%0d CCR=%0d---------------------------------",PLR,ULR,LLR,CCR);  
+																			$display("________________________________________________________________________________________________________________________");
+																			ontime=0;
+																	     	offtime=0;
+																			task_error;      // calling error block after start flag==1
+																			end//}
+														else 
+																		begin //{
+																					start_flag=0;
+																					ontime=0;
+																	     			offtime=0;
 
-begin//{
-  if(h_trans.start_in==1 && on_flag==0)
-	begin
-		ontime=$realtime;
-		on_flag=on_flag+1;
-		$display($time,"ontime=%f on flag=%0d",ontime,on_flag);
-		$display($time,"on_flag=%0d",on_flag);
-	end
-  if (h_trans.start_in==0 && on_flag==1)
-	begin
-		offtime=$realtime;
-		$display($time,"offtime=%f",offtime);
-		on_flag=0;
-	end
-	if(offtime-ontime==`CLK_PERIOD)
-	begin
-		start_flag=1;
-		$display($time,"off-on=%f start flag==1 ",ontime-offtime);
-		$display($time,"PLR=%0d ULR=%0d LLR=%0d CCR=%0d",PLR,ULR,LLR,CCR);  
-		task_error;      // calling error block after start flag==1
-		end
-	
-	if(offtime-ontime>10 || offtime-ontime<10 )
-		start_flag=0;
-
-	if(h_trans.reset==1 )
-		begin
-		ontime=0;
-		offtime=0;
-		end
-
-end//}
-else
-task_starter;
+																	   	end//}
+																		end//}
+					end//}
+			else begin//{
+							task_starter;
+				 end//}
 endtask
-
-
-					
 //===============================ERROR =======================================//					
 task task_error;
 if({plr_flag,llr_flag,ccr_flag,ulr_flag}==4'b1111)
@@ -215,8 +200,7 @@ if({plr_flag,llr_flag,ccr_flag,ulr_flag}==4'b1111)
 				if((PLR<LLR || PLR>ULR))
 						begin
 								h_trans.err=1;
-								{plr_flag,llr_flag,ccr_flag,ulr_flag}=h_trans.err?0:{plr_flag,llr_flag,ccr_flag,ulr_flag};
-								on_flag=0;
+								{plr_flag,llr_flag,ccr_flag,ulr_flag}=h_trans.err?0:{plr_flag,llr_flag,ccr_flag,ulr_flag}; // can able to write data once again whenn the error came
 								start_flag=0;
 						end
 				else
@@ -225,7 +209,6 @@ if({plr_flag,llr_flag,ccr_flag,ulr_flag}==4'b1111)
 								task_starter;  // not started unitil start flag is 1
 
 						end
-					//	$display("error=%0d  ",h_trans.err);
 		end
 endtask
 
@@ -236,6 +219,7 @@ task task_counter;
 							repeat(1)  
 								begin
 																			temp_count=PLR;
+																			$display("temp count=%0d",temp_count);
 																		   	temp_dir=(temp_count<ULR)?1:temp_dir; 
 										   									q1.push_back(temp_count);
 																			q2.push_back(temp_dir);
@@ -266,8 +250,8 @@ task task_counter;
 															q2.push_back(temp_dir);
 												 end
 								end//}
-//$display("q1=%p\nq1.size=%0d",q1,q1.size);
-//$display("q2=%p\nq2.size=%0d",q2,q2.size);
+$display("q1=%p\nq1.size=%0d",q1,q1.size);
+$display("q2=%p\nq2.size=%0d",q2,q2.size);
 
 endtask
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~COUNTER2 ~~~~~~~~~~~~~~~~~~~~~~~``//
@@ -315,14 +299,14 @@ task task_starter;
 						begin
 								h_trans.cout=q1.pop_front;
 								h_trans.dir=q2.pop_front;
-//#                  635ontime=635.000000 on flag=0
 //$display("q1=%p\nq1.size=%0d",q1,q1.size);
 //$display("q2=%p\nq2.size=%0d",q2,q2.size);
-								
 								if(q1.size()==0 &&  q2.size()==0)  
 	 																 begin 
 															  				 task_ec_maker;
-																			 $display("ec******************************");
+																			 $display("_--_--_--_--_--_--_--_----_------_-----_---_--END COUNT----_--_----_----_---_----_---_---_---_---_--_---");
+																			 $display("_--_--_--_--_--_--_--_----_------_-----_---_--END COUNT----_--_----_----_---_----_---_---_---_---_--_---");
+																			 $display("_--_--_--_--_--_--_--_----_------_-----_---_--END COUNT----_--_----_----_---_----_---_---_---_---_--_---");
 																	  end	
 						end
 endtask
@@ -332,8 +316,6 @@ task task_ec_maker;
 				h_trans.ec=1;
 				{plr_flag,llr_flag,ulr_flag,ccr_flag}=0;
 				start_flag=0;
-				ontime=0;
-				offtime=0;
 endtask
 
 
